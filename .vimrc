@@ -207,3 +207,9 @@ au BufNewFile,BufRead *.pm set shiftwidth=4
 
 au BufNewFile,BufRead *.html.ep set shiftwidth=2
 au BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
+
+"----------------------------------------------------------------------------
+"JavaScript
+"
+au BufNewFile,BufRead *.js set shiftwidth=4
+au BufNewFile,BufRead *.js set tabstop=4
