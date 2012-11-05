@@ -31,10 +31,10 @@ set wrapscan
 "Editing
 "
 "Width of tab on display
-set tabstop=2
+set tabstop=4
 
 "Width of tab
-set shiftwidth=2
+set shiftwidth=4
 
 "Input tab in head of col, it makes indentation number of 'shiftwidth'
 set smarttab
