@@ -14,8 +14,12 @@ Bundle 'gmarik/vundle'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
+Bundle 'tpope/vim-surround'
+
+Bundle 'molokai'
 
 "Perl
 Bundle 'hotchpotch/perldoc-vim'
@@ -136,7 +140,7 @@ set title
 "Show hex if target is a disabled print character
 
 "Color scheme
-"colorscheme TODO
+colorscheme molokai
 
 "When INSERT mode, change the color of status line
 augroup InsertHook
