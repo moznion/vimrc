@@ -25,6 +25,14 @@ Bundle 'molokai'
 Bundle 'hotchpotch/perldoc-vim'
 Bundle 'c9s/perlomni.vim'
 
+"JavaScript
+Bundle 'JavaScript-syntax'
+Bundle 'pangloss/vim-javascript'
+
+"HTML/CSS
+Bundle 'mattn/zencoding-vim'
+Bundle 'hail2u/vim-css3-syntax'
+
 filetype plugin indent on
 
 "----------------------------------------------------------------------------
