@@ -320,6 +320,6 @@ set splitbelow
 "----------------------------------------------------------------------------
 "For yanktmp
 "
-map <silent> y :call YanktmpYank()<CR>                                                                                                      
+map <silent> y :call YanktmpYank()<CR>
 map <silent> p :call YanktmpPaste_p()<CR>
 map <silent> P :call YanktmpPaste_P()<CR>
