@@ -11,7 +11,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-Bundle 'yanktmp'
+Bundle 'yanktmp.vim'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'Shougo/unite.vim'
