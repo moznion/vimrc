@@ -316,3 +316,10 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 " Always show processing time
 let g:quickrun_config={'*': {'split': '', 'hook/time/enable': '1'}}
 set splitbelow
+
+"----------------------------------------------------------------------------
+"For yanktmp
+"
+map <silent> y :call YanktmpYank()<CR>                                                                                                      
+map <silent> p :call YanktmpPaste_p()<CR>
+map <silent> P :call YanktmpPaste_P()<CR>
