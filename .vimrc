@@ -11,6 +11,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+Bundle 'yanktmp'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'Shougo/unite.vim'
@@ -26,7 +27,6 @@ Bundle 'hotchpotch/perldoc-vim'
 Bundle 'c9s/perlomni.vim'
 
 "JavaScript
-Bundle 'JavaScript-syntax'
 Bundle 'pangloss/vim-javascript'
 
 "HTML/CSS
