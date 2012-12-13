@@ -23,6 +23,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'molokai'
 
 "Perl
+Bundle 'vim-perl/vim-perl'
 Bundle 'hotchpotch/perldoc-vim'
 Bundle 'c9s/perlomni.vim'
 
@@ -152,9 +153,9 @@ colorscheme molokai
 
 "When INSERT mode, change the color of status line
 augroup InsertHook
-autocmd!
-autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+    au!
+    au InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+    au InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 function! GetB()
   let c = matchstr(getline('.'), '.', col('.') - 1)
@@ -193,9 +194,9 @@ set cursorline
 
 "Make line only the current window
 augroup cch
-autocmd! cch
-autocmd WinLeave * set nocursorline
-autocmd WinEnter,BufRead * set cursorline
+    au! cch
+    au WinLeave * set nocursorline
+    au WinEnter,BufRead * set cursorline
 augroup END
 
 "Enable syntax highlight
@@ -215,8 +216,9 @@ endif
 
 "Make skeleton
 augroup SkeletonAu
-    autocmd!
-    autocmd BufNewFile *.pl 0r ~/.vim/skeltons/skelton.pl
+    au!
+    au BufNewFile *.pl 0r ~/.vim/skeltons/skelton.pl
+    au BufNewFile *.t 0r ~/.vim/skeltons/skelton.t
 augroup END
 
 "----------------------------------------------------------------------------
@@ -255,12 +257,61 @@ set whichwrap=b,s,h,l,<,>,[,]
 "----------------------------------------------------------------------------
 "Perl
 "
+augroup filetypedetect
+    au! BufNewFile,BufRead *.t setf perl
+    au! BufNewFile,BufRead *.psgi setf perl
+    au! BufNewFile,BufRead *.tt setf tt2html
+augroup END
+au BufNewFile,BufRead *.t set shiftwidth=4
 au BufNewFile,BufRead *.pl set shiftwidth=4
 au BufNewFile,BufRead *.pm set shiftwidth=4
-au BufNewFile,BufRead *.t  set shiftwidth=4
-
 au BufNewFile,BufRead *.html.ep set shiftwidth=2
 au BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
+
+" Template for *.pl
+function! s:pm_template()
+    let path = substitute(expand('%'), '.*lib/', '', 'g')
+    let path = substitute(path, '[\\/]', '::', 'g')
+    let path = substitute(path, '\.pm$', '', 'g')
+
+    call append(0, 'package ' . path . ';')
+    call append(1, 'use strict;')
+    call append(2, 'use warnings;')
+    call append(3, 'use utf8;')
+    call append(4, '')
+    call append(5, '')
+    call append(6, '')
+    call append(7, '1;')
+    call cursor(6, 0)
+    " echomsg path
+endfunction
+au BufNewFile *.pm call s:pm_template()
+
+" Detect a misprint package name
+function! s:get_package_name()
+    let mx = '^\s*package\s\+\([^ ;]\+\)'
+    for line in getline(1, 5)
+        if line =~ mx
+            return substitute(matchstr(line, mx), mx, '\1', '')
+        endif
+    endfor
+    return ""
+endfunction
+function! s:check_package_name()
+    let path = substitute(expand('%:p'), '\\', '/', 'g')
+    let name = substitute(s:get_package_name(), '::', '/', 'g') . '.pm'
+    if path[-len(name):] != name
+        echohl WarningMsg
+        echomsg "Maybe package name is different from stored path."
+        echomsg "Please correct it."
+        echohl None
+    endif
+endfunction
+au! BufWritePost *.pm call s:check_package_name()
+
+" Perltidy
+map \pt <Esc>:%! perltidy -se<CR>
+map \ptv <Esc>:'<,'>! perltidy -se<CR>
 
 "----------------------------------------------------------------------------
 "JavaScript
