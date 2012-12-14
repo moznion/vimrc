@@ -111,6 +111,17 @@ set clipboard=unnamed
 
 "If INSERT mode, type 'Ctrl + k' then paste contents of clip both
 "imap "*pa TODO
+
+"For pair characters
+imap {} {}<Left>
+imap [] []<Left>
+imap () ()<Left>
+imap "" ""<Left>
+imap '' ''<Left>
+imap <> <><Left>
+imap // //<Left>
+imap /// ///<Left>
+
 "----------------------------------------------------------------------------
 
 "----------------------------------------------------------------------------
