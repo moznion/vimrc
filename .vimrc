@@ -19,6 +19,7 @@ Bundle 'Shougo/vimproc'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/syntastic'
 
 Bundle 'molokai'
 
@@ -385,3 +386,11 @@ set splitbelow
 map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
+
+"----------------------------------------------------------------------------
+"For Syntastic
+"
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': ['javascript'],
+                           \ 'passive_filetypes': [] }
+let g:syntastic_javascript_checker = 'jslint'
