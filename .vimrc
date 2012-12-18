@@ -34,6 +34,7 @@ Bundle 'pangloss/vim-javascript'
 "HTML/CSS
 Bundle 'mattn/zencoding-vim'
 Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
 
 filetype plugin indent on
 
@@ -120,8 +121,8 @@ imap () ()<Left>
 imap "" ""<Left>
 imap '' ''<Left>
 imap <> <><Left>
-imap // //<Left>
-imap /// ///<Left>
+au BufNewFile,BufRead /*.pl\|*.t\|*.pm imap // //<Left>
+au BufNewFile,BufRead /*.pl\|*.t\|*.pm imap /// ///<Left>
 
 "----------------------------------------------------------------------------
 
