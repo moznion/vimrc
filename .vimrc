@@ -19,6 +19,7 @@ Bundle 'Shougo/vimproc'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/syntastic'
 
 Bundle 'molokai'
 
@@ -34,6 +35,7 @@ Bundle 'pangloss/vim-javascript'
 "HTML/CSS
 Bundle 'mattn/zencoding-vim'
 Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
 
 filetype plugin indent on
 
@@ -112,6 +114,17 @@ set clipboard=unnamed
 
 "If INSERT mode, type 'Ctrl + k' then paste contents of clip both
 "imap "*pa TODO
+
+"For pair characters
+imap {} {}<Left>
+imap [] []<Left>
+imap () ()<Left>
+imap "" ""<Left>
+imap '' ''<Left>
+imap <> <><Left>
+au BufNewFile,BufRead /*.pl\|*.t\|*.pm imap // //<Left>
+au BufNewFile,BufRead /*.pl\|*.t\|*.pm imap /// ///<Left>
+
 "----------------------------------------------------------------------------
 
 "----------------------------------------------------------------------------
@@ -375,3 +388,11 @@ set splitbelow
 map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
+
+"----------------------------------------------------------------------------
+"For Syntastic
+"
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': ['javascript'],
+                           \ 'passive_filetypes': [] }
+let g:syntastic_javascript_checker = 'jslint'
