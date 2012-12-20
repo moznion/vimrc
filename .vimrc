@@ -26,6 +26,7 @@ Bundle 'molokai'
 Bundle 'vim-perl/vim-perl'
 Bundle 'hotchpotch/perldoc-vim'
 Bundle 'c9s/perlomni.vim'
+Bundle 'moznion/corelist.vim'
 
 "JavaScript
 Bundle 'pangloss/vim-javascript'
