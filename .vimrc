@@ -269,6 +269,11 @@ inoremap :set iminsert=0
 set whichwrap=b,s,h,l,<,>,[,]
 
 "----------------------------------------------------------------------------
+" Vim script
+"
+au BufNewFile,BufRead *.vim set shiftwidth=2
+
+"----------------------------------------------------------------------------
 "Perl
 "
 augroup filetypedetect
