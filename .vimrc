@@ -163,6 +163,7 @@ set title
 "Show hex if target is a disabled print character
 
 "Color scheme
+set t_Co=256
 colorscheme molokai
 
 "When INSERT mode, change the color of status line
