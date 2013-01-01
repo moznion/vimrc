@@ -29,6 +29,7 @@ Bundle 'vim-perl/vim-perl'
 Bundle 'hotchpotch/perldoc-vim'
 Bundle 'c9s/perlomni.vim'
 Bundle 'moznion/corelist.vim'
+Bundle 'moznion/perl-modle-version.vim'
 
 "JavaScript
 Bundle 'pangloss/vim-javascript'
