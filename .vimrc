@@ -29,7 +29,7 @@ Bundle 'vim-perl/vim-perl'
 Bundle 'hotchpotch/perldoc-vim'
 Bundle 'c9s/perlomni.vim'
 Bundle 'moznion/corelist.vim'
-Bundle 'moznion/perl-modle-version.vim'
+Bundle 'moznion/perl-module-version.vim'
 
 "JavaScript
 Bundle 'pangloss/vim-javascript'
@@ -113,6 +113,8 @@ set clipboard+=unnamed
 
 "Yanked characters are stored to clip board of system
 set clipboard=unnamed
+
+set spell
 
 "If INSERT mode, type 'Ctrl + k' then paste contents of clip both
 "imap "*pa TODO
