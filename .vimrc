@@ -20,6 +20,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
+Bundle 'Lokaltog/vim-powerline'
 
 Bundle 'molokai'
 
