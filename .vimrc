@@ -244,7 +244,12 @@ augroup END
 set nocompatible
 
 "Removing white spaces on end of line when saved
-autocmd BufWritePre * :%s/\s\+$//ge
+autocmd BufWritePre * call s:RemoveWhiteSpaceAtTail()
+func! s:RemoveWhiteSpaceAtTail()
+  if &ft != 'markdown'
+    :%s/\s\+$//ge
+  endif
+endf
 
 "Don't make backup
 set nobackup
