@@ -115,6 +115,7 @@ set clipboard+=unnamed
 set clipboard=unnamed
 
 set spell
+au BufNewFile,BufRead *.snippets set nospell
 
 "If INSERT mode, type 'Ctrl + k' then paste contents of clip both
 "imap "*pa TODO
@@ -289,6 +290,7 @@ au BufNewFile,BufRead *.vim set shiftwidth=2
 augroup filetypedetect
     au! BufNewFile,BufRead *.t setf perl
     au! BufNewFile,BufRead *.psgi setf perl
+    au! BufNewFile,BufRead *.pm setf perl
     au! BufNewFile,BufRead *.tt setf tt2html
 augroup END
 au BufNewFile,BufRead *.t set shiftwidth=4
@@ -339,8 +341,8 @@ endfunction
 au! BufWritePost *.pm call s:check_package_name()
 
 " Perltidy
-map \pt <Esc>:%! perltidy -se<CR>
-map \ptv <Esc>:'<,'>! perltidy -se<CR>
+map <silent> ,pt <Esc> :%! perltidy -se<CR>
+map <silent> ,ptv <Esc> :'<,'>! perltidy -se<CR>
 
 "----------------------------------------------------------------------------
 "JavaScript
@@ -411,3 +413,30 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['javascript'],
                            \ 'passive_filetypes': [] }
 let g:syntastic_javascript_checker = 'jslint'
+
+"----------------------------------------------------------------------------
+"For Unite.vim
+"
+" Inhibit to be the input mode when start unite
+let g:unite_enable_start_insert=0
+" Show a buffer list
+noremap <silent> ,ub :<C-u>Unite buffer<CR>
+" Show a file list
+noremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" Show a list of used recently
+noremap <silent> ,ur :<C-u>Unite file_mru<CR>
+" Show a yanked list
+noremap <silent> ,uy :<C-u>Unite -buffer-name=register register<CR>
+" Show a list of file and buffer
+noremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+" Show all of list
+noremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" Close unite buffer by pressing ESC-key twice
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+" Open file by horizontal separate.
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+" Open file by vertical separate.
+au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
