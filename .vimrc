@@ -14,6 +14,8 @@ Bundle 'gmarik/vundle'
 Bundle 'yanktmp.vim'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
+Bundle 'osyo-manga/shabadou.vim'
+Bundle 'moznion/shabadou.vim-animation'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/neocomplcache'
@@ -396,8 +398,18 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 "
 " Split horizontally
 " Always show processing time
-let g:quickrun_config={'*': {'split': '', 'hook/time/enable': '1'}}
-set splitbelow
+let g:quickrun_config = {
+\   '*': {
+\       "hook/simple_anim/enable" : 1,
+\       "hook/simple_anim/wait" : 1,
+\       'hook/time/enable': 1,
+\       'runner': 'vimproc',
+\       'runner/vimproc/updatetime': 40,
+\       'outputter/buffer/split': ':botright 8sp',
+\   }
+\}
+au FileType quickrun nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType quickrun inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 "----------------------------------------------------------------------------
 "For yanktmp
