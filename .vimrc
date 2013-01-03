@@ -19,17 +19,23 @@ NeoBundle 'Shougo/vimproc', {
 \   },
 \}
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'yanktmp.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'moznion/shabadou.vim-animation', {
 \   'depends': 'osyo-manga/shabadou.vim'
 \}
-NeoBundle 'tpope/vim-surround'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Lokaltog/vim-powerline'
+
+"" Input Support
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'yanktmp.vim'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'h1mesuke/textobj-wiw'
 
 "" Colorscheme
 NeoBundle 'molokai'
@@ -40,6 +46,18 @@ NeoBundleLazy 'hotchpotch/perldoc-vim'
 NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'moznion/corelist.vim'
 NeoBundleLazy 'moznion/perl-module-version.vim'
+
+"" Ruby
+NeoBundleLazy 'vim-ruby/vim-ruby'
+NeoBundleLazy 'taq/vim-rspec'
+NeoBundleLazy 'taichouchou2/vim-rails'
+NeoBundleLazy 'romanvbabenko/rails.vim'
+NeoBundleLazy 'rhysd/neco-ruby-keyword-args'
+NeoBundleLazy 'ujihisa/unite-rake'
+NeoBundleLazy 'basyura/unite-rails'
+NeoBundleLazy 'rhysd/unite-ruby-require.vim'
+NeoBundleLazy 'vim-scripts/ruby-matchit'
+NeoBundleLazy 'rhysd/vim-textobj-ruby'
 
 "" JavaScript
 NeoBundleLazy 'pangloss/vim-javascript'
@@ -102,6 +120,12 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
+"" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+func! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+endf
+
 "" for snippets
 imap <expr><C-k> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
@@ -130,6 +154,11 @@ au FileType quickrun inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
+
+"----------------------------------------------------------------------------
+" For tcomment_vim
+"----------------------------------------------------------------------------
+let g:tcommentMapLeader1 = '<C-C>'
 
 "----------------------------------------------------------------------------
 "For Syntastic
@@ -468,3 +497,19 @@ au FileType html,css NeoBundleSource
       \ zencoding-vim
       \ vim-css3-syntax
       \ vim-css-color
+
+"----------------------------------------------------------------------------
+" Ruby
+"----------------------------------------------------------------------------
+au FileType ruby NeoBundleSource
+      \ vim-ruby
+      \ vim-rspec
+      \ vim-rails
+      \ rails.vim
+      \ neco-ruby-keyword-args
+      \ unite-rake
+      \ unite-rails
+      \ unite-ruby-require.vim
+      \ ruby-matchit
+      \ vim-textobj-ruby
+au FileType ruby set shiftwidth=2 tabstop=2
