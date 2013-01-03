@@ -1,45 +1,63 @@
 "----------------------------------------------------------------------------
-" Vundle
+" neobundle
 "----------------------------------------------------------------------------
+"" Purge compatible with Vi
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-Bundle 'yanktmp.vim'
-Bundle 'thinca/vim-ref'
-Bundle 'thinca/vim-quickrun'
-Bundle 'osyo-manga/shabadou.vim'
-Bundle 'moznion/shabadou.vim-animation'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-powerline'
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimproc', {
+\   'build': {
+\       'cygwin': 'make -f make_cygwin.mak',
+\       'mac': 'make -f make_mac.mak',
+\       'unix': 'make -f make_unix.mak',
+\   },
+\}
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'yanktmp.vim'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'moznion/shabadou.vim-animation', {
+\   'depends': 'osyo-manga/shabadou.vim'
+\}
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'Lokaltog/vim-powerline'
 
 "" Colorscheme
-Bundle 'molokai'
+NeoBundle 'molokai'
 
 "" Perl
-Bundle 'vim-perl/vim-perl'
-Bundle 'hotchpotch/perldoc-vim'
-Bundle 'c9s/perlomni.vim'
-Bundle 'moznion/corelist.vim'
-Bundle 'moznion/perl-module-version.vim'
+NeoBundleLazy 'vim-perl/vim-perl'
+NeoBundleLazy 'hotchpotch/perldoc-vim'
+NeoBundleLazy 'c9s/perlomni.vim'
+NeoBundleLazy 'moznion/corelist.vim'
+NeoBundleLazy 'moznion/perl-module-version.vim'
 
 "" JavaScript
-Bundle 'pangloss/vim-javascript'
+NeoBundleLazy 'pangloss/vim-javascript'
 
 "" HTML/CSS
-Bundle 'mattn/zencoding-vim'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'skammer/vim-css-color'
+NeoBundleLazy 'mattn/zencoding-vim'
+NeoBundleLazy 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'skammer/vim-css-color'
 
 filetype plugin indent on
+
+"" Installation check.
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+        \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+  "finish
+endif
 
 "----------------------------------------------------------------------------
 "For neocomplcache
@@ -71,6 +89,7 @@ let g:neocomplcache_ctags_arguments_list = {
 \}
 
 let g:neocomplcache_snippets_dir = "~/.vim/snippets"
+
 "" Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
 \ 'default': '',
@@ -258,9 +277,6 @@ augroup END
 "----------------------------------------------------------------------------
 "Others
 "----------------------------------------------------------------------------
-"" Purge compatible with Vi
-set nocompatible
-
 "" Removing white spaces on end of line when saved
 autocmd BufWritePre * call s:RemoveWhiteSpaceAtTail()
 func! s:RemoveWhiteSpaceAtTail()
@@ -372,8 +388,7 @@ syntax on
 "----------------------------------------------------------------------------
 " Vim script
 "----------------------------------------------------------------------------
-au BufNewFile,BufRead .vimrc set shiftwidth=2
-au BufNewFile,BufRead *.vim set shiftwidth=2
+au FileType vim set shiftwidth=2 tabstop=2
 
 "----------------------------------------------------------------------------
 " Perl
@@ -384,18 +399,22 @@ augroup filetypedetect
   au! BufNewFile,BufRead *.pm setf perl
   au! BufNewFile,BufRead *.tt setf tt2html
 augroup END
-au BufNewFile,BufRead *.t set shiftwidth=4
-au BufNewFile,BufRead *.pl set shiftwidth=4
-au BufNewFile,BufRead *.pm set shiftwidth=4
-au BufNewFile,BufRead *.html.ep set shiftwidth=2
-au BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
 
-""  Template for *.pl
+au! BufNewFile,BufRead *.html.ep set shiftwidth=2
+au! BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
+au! FileType perl set shiftwidth=4 tabstop=4
+au FileType perl NeoBundleSource
+      \ vim-perl
+      \ perldoc-vim
+      \ perlomni.vim
+      \ corelist.vim
+      \ perl-module-version.vim
+
+""  Template for *.pm
 function! s:pm_template()
   let path = substitute(expand('%'), '.*lib/', '', 'g')
   let path = substitute(path, '[\\/]', '::', 'g')
   let path = substitute(path, '\.pm$', '', 'g')
-
   call append(0, 'package ' . path . ';')
   call append(1, 'use strict;')
   call append(2, 'use warnings;')
@@ -420,14 +439,14 @@ func! s:get_package_name()
   return ""
 endf
 func! s:check_package_name()
-    let path = substitute(expand('%:p'), '\\', '/', 'g')
-    let name = substitute(s:get_package_name(), '::', '/', 'g') . '.pm'
-    if path[-len(name):] != name
-        echohl WarningMsg
-        echomsg "Maybe package name is different from stored path."
-        echomsg "Please correct it."
-        echohl None
-    endif
+  let path = substitute(expand('%:p'), '\\', '/', 'g')
+  let name = substitute(s:get_package_name(), '::', '/', 'g') . '.pm'
+  if path[-len(name):] != name
+    echohl WarningMsg
+    echomsg "Maybe package name is different from stored path."
+    echomsg "Please correct it."
+    echohl None
+  endif
 endf
 au! BufWritePost *.pm call s:check_package_name()
 
@@ -438,5 +457,14 @@ map <silent> ,ptv <Esc> :'<,'>! perltidy -se<CR>
 "----------------------------------------------------------------------------
 " JavaScript
 "----------------------------------------------------------------------------
-au BufNewFile,BufRead *.js set shiftwidth=4
-au BufNewFile,BufRead *.js set tabstop=4
+au FileType javascript NeoBundleSource
+      \ vim-javascript
+au FileType javascript set shiftwidth=4 tabstop=4
+
+"----------------------------------------------------------------------------
+" HTML/CSS
+"----------------------------------------------------------------------------
+au FileType html,css NeoBundleSource
+      \ zencoding-vim
+      \ vim-css3-syntax
+      \ vim-css-color
