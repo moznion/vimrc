@@ -26,6 +26,7 @@ NeoBundle 'moznion/shabadou.vim-animation', {
 \}
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'fholgado/minibufexpl.vim'
 
 "" Input Support
 NeoBundle 'Shougo/neocomplcache'
@@ -77,6 +78,7 @@ NeoBundleLazy 'moznion/java_getset.vim', { 'rev': 'enable_K_and_R_style' }
 NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'skammer/vim-css-color'
+NeoBundleLazy 'othree/html5.vim'
 
 filetype plugin indent on
 
@@ -165,6 +167,20 @@ let g:quickrun_config = {
 \}
 au FileType quickrun nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType quickrun inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+"----------------------------------------------------------------------------
+" For minibufexpl
+"----------------------------------------------------------------------------
+let g:miniBufExplMapWindowNavVim=1
+let g:miniBufExplSplitBelow=0
+let g:miniBufExplMapWindowNavArrows=1
+let g:miniBufExplMapCTabSwitchBufs=1
+let g:miniBufExplModSelTarget=1
+let g:miniBufExplSplitToEdge=1
+nmap <C-w><C-w> :bd<CR> :syntax on<CR>
+nmap <Space>    :MBEbn<CR>
+nmap <C-w><C-j> :MBEbn<CR>
+nmap <C-w><C-k> :MBEbp<CR>
 
 "----------------------------------------------------------------------------
 "For yanktmp
@@ -515,6 +531,7 @@ au FileType html,css NeoBundleSource
       \ zencoding-vim
       \ vim-css3-syntax
       \ vim-css-color
+      \ html5.vim
 
 "----------------------------------------------------------------------------
 " Ruby
