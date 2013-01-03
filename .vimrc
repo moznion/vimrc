@@ -71,8 +71,8 @@ NeoBundleLazy 'vim-scripts/javacomplete', {
 \       'unix': 'javac autoload/Reflection.java',
 \   },
 \}
-NeoBundleLazy 'moznion/jcommenter.vim', { 'rev': 'change_the_file_format' }
-NeoBundleLazy 'moznion/java_getset.vim', { 'rev': 'enable_K_and_R_style' }
+NeoBundleLazy 'moznion/jcommenter.vim'
+NeoBundleLazy 'moznion/java_getset.vim'
 
 "" HTML/CSS
 NeoBundleLazy 'mattn/zencoding-vim'
