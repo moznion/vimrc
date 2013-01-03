@@ -96,15 +96,15 @@ let g:acp_enableAtStartup = 0
 "" Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 
-"" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-
 "" Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 "" Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
+
+"" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
 
 "" Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -130,7 +130,15 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
 "" <CR>: close popup and save indent.
+inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 func! s:my_cr_function()
   return neocomplcache#smart_close_popup() . "\<CR>"
@@ -532,9 +540,11 @@ au FileType java NeoBundleSource
       \ jcommenter.vim
       \ java_getset.vim
 
-au FileType java set
+au FileType java setlocal
       \ omnifunc=javacomplete#Complete
       \ completefunc=javacomplete#CompleteParamsInfo
+
+au FileType java set
       \ shiftwidth=4
       \ tabstop=4
 
