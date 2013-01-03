@@ -62,6 +62,17 @@ NeoBundleLazy 'rhysd/vim-textobj-ruby'
 "" JavaScript
 NeoBundleLazy 'pangloss/vim-javascript'
 
+"" Java
+NeoBundleLazy 'vim-scripts/javacomplete', {
+\   'build': {
+\       'cygwin': 'javac autoload/Reflection.java',
+\       'mac': 'javac autoload/Reflection.java',
+\       'unix': 'javac autoload/Reflection.java',
+\   },
+\}
+NeoBundleLazy 'moznion/jcommenter.vim', { 'rev': 'change_the_file_format' }
+NeoBundleLazy 'moznion/java_getset.vim', { 'rev': 'enable_K_and_R_style' }
+
 "" HTML/CSS
 NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
@@ -74,7 +85,6 @@ if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
         \ string(neobundle#get_not_installed_bundle_names())
   echomsg 'Please execute ":NeoBundleInstall" command.'
-  "finish
 endif
 
 "----------------------------------------------------------------------------
@@ -513,3 +523,30 @@ au FileType ruby NeoBundleSource
       \ ruby-matchit
       \ vim-textobj-ruby
 au FileType ruby set shiftwidth=2 tabstop=2
+
+"----------------------------------------------------------------------------
+" Java
+"----------------------------------------------------------------------------
+au FileType java NeoBundleSource
+      \ javacomplete
+      \ jcommenter.vim
+      \ java_getset.vim
+
+au FileType java set
+      \ omnifunc=javacomplete#Complete
+      \ completefunc=javacomplete#CompleteParamsInfo
+      \ shiftwidth=4
+      \ tabstop=4
+
+"" Set key map for jcommenter
+au FileType java map <C-c><C-j> :call JCommentWriter()<CR>
+
+"" Apply K&R style block to java_getset (This is unique function)
+let b:javagetset_enable_K_and_R=1
+
+"" Syntax highlight
+let g:java_highlight_all=1
+let g:java_highlight_debug=1
+let g:java_allow_cpp_keywords=1
+let g:java_space_errors=1
+let g:java_highlight_functions=1
