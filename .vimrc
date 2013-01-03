@@ -571,6 +571,9 @@ au FileType java map <C-c><C-j> :call JCommentWriter()<CR>
 "" Apply K&R style block to java_getset (This is unique function)
 let b:javagetset_enable_K_and_R=1
 
+"" Add "this" keyword to member of getter and setter
+let b:javagetset_add_this=1
+
 "" Syntax highlight
 let g:java_highlight_all=1
 let g:java_highlight_debug=1
