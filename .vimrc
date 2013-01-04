@@ -46,6 +46,14 @@ NeoBundleLazy 'hotchpotch/perldoc-vim'
 NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'moznion/corelist.vim'
 NeoBundleLazy 'moznion/perl-module-version.vim'
+func! s:LazyLoadForPerl()
+  au FileType perl NeoBundleSource
+        \ vim-perl
+        \ perldoc-vim
+        \ perlomni.vim
+        \ corelist.vim
+        \ perl-module-version.vim
+endf
 "}}}
 
 " Ruby {{{
@@ -59,10 +67,27 @@ NeoBundleLazy 'basyura/unite-rails'
 NeoBundleLazy 'rhysd/unite-ruby-require.vim'
 NeoBundleLazy 'vim-scripts/ruby-matchit'
 NeoBundleLazy 'rhysd/vim-textobj-ruby'
+func! s:LazyLoadForRuby()
+  au FileType ruby NeoBundleSource
+        \ vim-ruby
+        \ vim-rspec
+        \ vim-rails
+        \ rails.vim
+        \ neco-ruby-keyword-args
+        \ unite-rake
+        \ unite-rails
+        \ unite-ruby-require.vim
+        \ ruby-matchit
+        \ vim-textobj-ruby
+endf
 "}}}
 
 " JavaScript {{{
 NeoBundleLazy 'pangloss/vim-javascript'
+func! s:LazyLoadForJavaScript()
+  au FileType javascript NeoBundleSource
+        \ vim-javascript
+endf
 "}}}
 
 " Java {{{
@@ -75,13 +100,32 @@ NeoBundleLazy 'vim-scripts/javacomplete', {
 \}
 NeoBundleLazy 'moznion/jcommenter.vim'
 NeoBundleLazy 'moznion/java_getset.vim'
+func! s:LazyLoadForJava()
+  au FileType java NeoBundleSource
+        \ javacomplete
+        \ jcommenter.vim
+        \ java_getset.vim
+endf
 "}}}
 
 " HTML/CSS {{{
 NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'skammer/vim-css-color'
-NeoBundleLazy 'othree/html5.vim'
+NeoBundleLazy 'othree/html5.vim', {
+\   'build': {
+\       'cygwin': 'make',
+\       'mac': 'make',
+\       'unix': 'make',
+\   },
+\}
+func! s:LazyLoadForHtmlCss()
+  au FileType html,css NeoBundleSource
+        \ zencoding-vim
+        \ vim-css3-syntax
+        \ vim-css-color
+        \ html5.vim
+endf
 "}}}
 
 " Installation check.
@@ -368,13 +412,8 @@ augroup END
 "----------------------------------------------------------------------------
 augroup PerlAutoCmd
   au!
+  call s:LazyLoadForPerl()
   au FileType perl set shiftwidth=4 tabstop=4
-  au FileType perl NeoBundleSource
-        \ vim-perl
-        \ perldoc-vim
-        \ perlomni.vim
-        \ corelist.vim
-        \ perl-module-version.vim
 augroup END
 
 augroup eplAutoCmd
@@ -434,21 +473,16 @@ map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "----------------------------------------------------------------------------
 augroup JavaScriptAutoCmd
   au!
-  au FileType javascript NeoBundleSource
-        \ vim-javascript
+  call s:LazyLoadForJavaScript()
   au FileType javascript set shiftwidth=4 tabstop=4
 augroup END
 
 "----------------------------------------------------------------------------
 " HTML/CSS
 "----------------------------------------------------------------------------
-augroup HtmlAutoCmd
+augroup HtmlCssAutoCmd
   au!
-  au FileType html,css NeoBundleSource
-        \ zencoding-vim
-        \ vim-css3-syntax
-        \ vim-css-color
-        \ html5.vim
+  call s:LazyLoadForHtmlCss()
 augroup END
 
 "----------------------------------------------------------------------------
@@ -456,17 +490,7 @@ augroup END
 "----------------------------------------------------------------------------
 augroup RubyAutoCmd
   au!
-  au FileType ruby NeoBundleSource
-        \ vim-ruby
-        \ vim-rspec
-        \ vim-rails
-        \ rails.vim
-        \ neco-ruby-keyword-args
-        \ unite-rake
-        \ unite-rails
-        \ unite-ruby-require.vim
-        \ ruby-matchit
-        \ vim-textobj-ruby
+  call s:LazyLoadForRuby()
   au FileType ruby set shiftwidth=2 tabstop=2
 augroup END
 
@@ -475,10 +499,7 @@ augroup END
 "----------------------------------------------------------------------------
 augroup JavaAutoCmd
   au!
-  au FileType java NeoBundleSource
-        \ javacomplete
-        \ jcommenter.vim
-        \ java_getset.vim
+  call s:LazyLoadForJava()
   au FileType java setlocal
         \ omnifunc=javacomplete#Complete
         \ completefunc=javacomplete#CompleteParamsInfo
