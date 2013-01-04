@@ -222,30 +222,20 @@ au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vspli
 au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 
 "----------------------------------------------------------------------------
-"Searching
+" Searching
 "----------------------------------------------------------------------------
-"" Ignoring capital and lower case when searching
-set ignorecase
-
-"" If searching condition includes both of capital and lower, distinguish them
-set smartcase
-
-"" Doing incremental search
-set incsearch
-
-"" Highlighting results of searching
-set hlsearch
-
-"" Hiding highlight of searching results when typed Esc-Esc
-set hlsearch
+set ignorecase  "Ignoring capital and lower case when searching
+set smartcase   "If searching condition includes both of capital and lower, distinguish them
+set incsearch   "Doing incremental search
+set wrapscan    "Enable wrap search
+set hlsearch    "Highlighting results of searching
+" Hiding highlight of searching when typed Esc-Esc {{{
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
 nnoremap / :<C-u>set hlsearch<Return>/
 nnoremap ? :<C-u>set hlsearch<Return>?
 nnoremap * :<C-u>set hlsearch<Return>*
 nnoremap # :<C-u>set hlsearch<Return>#
-
-"" When searching, if target go to last of file go ahead
-set wrapscan
+"}}}
 
 "----------------------------------------------------------------------------
 "Editing
