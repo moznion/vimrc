@@ -85,6 +85,10 @@ if neobundle#exists_not_installed_bundles()
   echomsg 'Please execute ":NeoBundleInstall" command.'
 endif
 
+
+"----------------------------------------------------------------------------
+" Init
+"----------------------------------------------------------------------------
 augroup detectfiletype
   au!
   au BufNewFile,BufRead *.t setf perl
@@ -94,6 +98,8 @@ augroup detectfiletype
 augroup END
 
 filetype plugin indent on
+
+let g:mapleader = ','
 
 "----------------------------------------------------------------------------
 "For neocomplcache
@@ -190,22 +196,21 @@ let g:syntastic_mode_map = {
 let g:syntastic_javascript_checker = 'jslint'
 
 "----------------------------------------------------------------------------
-"For Unite.vim
+" Unite.vim
 "----------------------------------------------------------------------------
-"" Inhibit to be the input mode when start unite
-let g:unite_enable_start_insert=0
+let g:unite_enable_start_insert=0 "Inhibit to be the input mode when start unite
 "" Show a buffer list
-noremap <silent> ,ub :<C-u>Unite buffer<CR>
+noremap <silent><Leader>ub : <C-u>Unite buffer<CR>
 "" Show a file list
-noremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+noremap <silent><Leader>uf : <C-u>UniteWithBufferDir -buffer-name=files file<CR>
 "" Show a list of used recently
-noremap <silent> ,ur :<C-u>Unite file_mru<CR>
+noremap <silent><Leader>ur : <C-u>Unite file_mru<CR>
 "" Show a yanked list
-noremap <silent> ,uy :<C-u>Unite -buffer-name=register register<CR>
+noremap <silent><Leader>uy : <C-u>Unite -buffer-name=register register<CR>
 "" Show a list of file and buffer
-noremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+noremap <silent><Leader>uu : <C-u>Unite buffer file_mru<CR>
 "" Show all of list
-noremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+noremap <silent><Leader>ua : <C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 "" Close unite buffer by pressing ESC-key twice
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
