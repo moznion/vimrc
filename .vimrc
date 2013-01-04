@@ -77,6 +77,7 @@ NeoBundleLazy 'moznion/java_getset.vim'
 NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'skammer/vim-css-color'
+NeoBundleLazy 'othree/html5.vim'
 
 filetype plugin indent on
 
@@ -515,6 +516,7 @@ au FileType html,css NeoBundleSource
       \ zencoding-vim
       \ vim-css3-syntax
       \ vim-css-color
+      \ html5.vim
 
 "----------------------------------------------------------------------------
 " Ruby
