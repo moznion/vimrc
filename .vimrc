@@ -79,14 +79,22 @@ NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'skammer/vim-css-color'
 NeoBundleLazy 'othree/html5.vim'
 
-filetype plugin indent on
-
 "" Installation check.
 if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
         \ string(neobundle#get_not_installed_bundle_names())
   echomsg 'Please execute ":NeoBundleInstall" command.'
 endif
+
+augroup detectfiletype
+  au!
+  au BufNewFile,BufRead *.t setf perl
+  au BufNewFile,BufRead *.psgi setf perl
+  au BufNewFile,BufRead *.pm setf perl
+  au BufNewFile,BufRead *.tt setf tt2html
+augroup END
+
+filetype plugin indent on
 
 "----------------------------------------------------------------------------
 "For neocomplcache
@@ -441,13 +449,6 @@ au FileType vim set shiftwidth=2 tabstop=2
 "----------------------------------------------------------------------------
 " Perl
 "----------------------------------------------------------------------------
-augroup filetypedetect
-  au! BufNewFile,BufRead *.t setf perl
-  au! BufNewFile,BufRead *.psgi setf perl
-  au! BufNewFile,BufRead *.pm setf perl
-  au! BufNewFile,BufRead *.tt setf tt2html
-augroup END
-
 au! BufNewFile,BufRead *.html.ep set shiftwidth=2
 au! BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
 au! FileType perl set shiftwidth=4 tabstop=4
