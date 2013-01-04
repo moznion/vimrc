@@ -48,7 +48,7 @@ NeoBundleLazy 'moznion/corelist.vim'
 NeoBundleLazy 'moznion/perl-module-version.vim'
 "}}}
 
-"" Ruby {{{
+" Ruby {{{
 NeoBundleLazy 'vim-ruby/vim-ruby'
 NeoBundleLazy 'taq/vim-rspec'
 NeoBundleLazy 'taichouchou2/vim-rails'
@@ -84,7 +84,7 @@ NeoBundleLazy 'skammer/vim-css-color'
 NeoBundleLazy 'othree/html5.vim'
 "}}}
 
-"" Installation check.
+" Installation check.
 if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
         \ string(neobundle#get_not_installed_bundle_names())
@@ -102,7 +102,12 @@ augroup detectfiletype
   au BufNewFile,BufRead *.tt setf tt2html
 augroup END
 
+augroup MyAutoCmd
+  au!
+augroup END
+
 filetype plugin indent on
+syntax on
 
 let g:mapleader = ','
 
@@ -112,8 +117,8 @@ let g:mapleader = ','
 let g:acp_enableAtStartup = 0                           "Disable AutoComplPop.
 let g:neocomplcache_enable_at_startup = 1               " Use neocomplcache.
 let g:neocomplcache_min_syntax_length = 3               "Set minimum keyword length to pop up.
-let g:neocomplcache_enable_smart_case = 1               "Use smartcase.
-let g:neocomplcache_enable_underbar_completion = 1      "Use underbar completion.
+let g:neocomplcache_enable_smart_case = 1               "Use smart case.
+let g:neocomplcache_enable_underbar_completion = 1      "Use under bar completion.
 let g:neocomplcache_enable_camel_case_completion = 1    "Use camel case completion.
 let g:neocomplcache_snippets_dir = "~/.vim/snippets"
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
@@ -133,7 +138,7 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 "}}}
-"
+
 " Enable heavy omni completion {{{
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
@@ -143,17 +148,17 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "}}}
 
 " Key mapping for neocomplcache {{{
-"" Select with <TAB>
+" Select with <TAB>
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-"" <CR>: close popup and save indent.
+" <CR>: close pop up and save indent.
 inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 func! s:my_cr_function()
   return neocomplcache#smart_close_popup() . "\<CR>"
 endf
 
-"" for snippets
+" for snippets
 imap <expr><C-k> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
 "}}}
@@ -191,27 +196,31 @@ let g:syntastic_javascript_checker = 'jslint'
 " Unite.vim
 "----------------------------------------------------------------------------
 let g:unite_enable_start_insert=0 "Inhibit to be the input mode when start unite
-"" Show a buffer list
+" Show a buffer list
 noremap <silent><Leader>ub : <C-u>Unite buffer<CR>
-"" Show a file list
+" Show a file list
 noremap <silent><Leader>uf : <C-u>UniteWithBufferDir -buffer-name=files file<CR>
-"" Show a list of used recently
+" Show a list of used recently
 noremap <silent><Leader>ur : <C-u>Unite file_mru<CR>
-"" Show a yanked list
+" Show a yanked list
 noremap <silent><Leader>uy : <C-u>Unite -buffer-name=register register<CR>
-"" Show a list of file and buffer
+" Show a list of file and buffer
 noremap <silent><Leader>uu : <C-u>Unite buffer file_mru<CR>
-"" Show all of list
+" Show all of list
 noremap <silent><Leader>ua : <C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-"" Close unite buffer by pressing ESC-key twice
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-"" Open file by horizontal separate.
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-"" Open file by vertical separate.
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+
+augroup UniteAutoCmd
+  au!
+  " Close unite buffer by pressing ESC-key twice
+  au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+  au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+  " Open file by horizontal separate.
+  au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+  " Open file by vertical separate.
+  au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+  au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+augroup END
 
 "----------------------------------------------------------------------------
 " Searching
@@ -248,17 +257,17 @@ set expandtab
 "}}}
 
 " For Japanese {{{
-set formatoptions+=mM                   "wrap text for Japanese
-au BufNewFile,BufRead * set iminsert=0  "Reset the Japanese input method
+set formatoptions+=mM                             "wrap text for Japanese
+au MyAutoCmd BufNewFile,BufRead * set iminsert=0  "Reset the Japanese input method
 "}}}
 
 " Checking spelling {{{
 set spell
-au BufNewFile,BufRead *.snippets set nospell
+au MyAutoCmd BufNewFile,BufRead *.snippets set nospell
 "}}}
 
 " Removing white spaces on end of line when saved file {{{
-autocmd BufWritePre * call s:RemoveWhiteSpaceAtTail()
+au MyAutoCmd BufWritePre * call s:RemoveWhiteSpaceAtTail()
 func! s:RemoveWhiteSpaceAtTail()
   if &ft != 'markdown'
     :%s/\s\+$//ge
@@ -280,14 +289,14 @@ imap <> <><Left>
 "----------------------------------------------------------------------------
 " Remember cursor position when closed just before {{{
 if has("autocmd")
-  autocmd BufReadPost *
+  au MyAutoCmd BufReadPost *
         \ if line("'\"") > 0 && line ("'\"") <= line("$") |
         \   exe "normal! g'\"" |
         \ endif
 endif
 "}}}
 
-" Skeleton {{{
+" Apply Skeleton {{{
 augroup SkeletonAu
   au!
   au BufNewFile *.pl 0r ~/.vim/skeltons/skelton.pl
@@ -313,10 +322,14 @@ set noimcmdline
 inoremap :set iminsert=0
 "}}}
 
+" Kill the force killing {{{
+noremap ZZ <NOP>
+noremap ZQ <NOP>
+"}}}
+
 "----------------------------------------------------------------------------
 "Displaying
 "----------------------------------------------------------------------------
-syntax on
 set number
 set ruler
 set wrap
@@ -330,42 +343,12 @@ set t_Co=256
 colorscheme molokai
 "}}}
 
-"" Show hex if target is a disabled print character
-func! GetB()
-  let c = matchstr(getline('.'), '.', col('.') - 1)
-  let c = iconv(c, &enc, &fenc)
-  return String2Hex(c)
-endf
-
-"" The function Nr2Hex() returns the Hex string of a number.
-func! Nr2Hex(nr)
-  let n = a:nr
-  let r = ""
-  while n
-    let r = '0123456789ABCDEF'[n % 16] . r
-    let n = n / 16
-  endwhile
-  return r
-endf
-
-"" The function String2Hex() converts each character in a string to a two
-"" character Hex string.
-func! String2Hex(str)
-  let out = ''
-  let ix = 0
-  while ix < strlen(a:str)
-    let out = out . Nr2Hex(char2nr(a:str[ix]))
-    let ix = ix + 1
-  endwhile
-  return out
-endf
-
 " Showing full-pitch space {{{
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-au BufNewFile,BufRead * match ZenkakuSpace /　/
+au MyAutoCmd BufNewFile,BufRead * match ZenkakuSpace /　/
 "}}}
 
-"" Make line only the current window
+" Make line only the current window
 augroup cch
   au! cch
   au WinLeave * set nocursorline
@@ -375,23 +358,33 @@ augroup END
 "----------------------------------------------------------------------------
 " Vim script
 "----------------------------------------------------------------------------
-au FileType vim set shiftwidth=2 tabstop=2
+augroup VimScriptAutoCmd
+  au!
+  au FileType vim set shiftwidth=2 tabstop=2
+augroup END
 
 "----------------------------------------------------------------------------
 " Perl
 "----------------------------------------------------------------------------
-au! BufNewFile,BufRead *.html.ep set shiftwidth=2
-au! BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
-au! FileType perl set shiftwidth=4 tabstop=4
-au FileType perl NeoBundleSource
-      \ vim-perl
-      \ perldoc-vim
-      \ perlomni.vim
-      \ corelist.vim
-      \ perl-module-version.vim
+augroup PerlAutoCmd
+  au!
+  au FileType perl set shiftwidth=4 tabstop=4
+  au FileType perl NeoBundleSource
+        \ vim-perl
+        \ perldoc-vim
+        \ perlomni.vim
+        \ corelist.vim
+        \ perl-module-version.vim
+augroup END
+
+augroup eplAutoCmd
+  au!
+  au BufNewFile,BufRead *.html.ep set shiftwidth=2
+  au BufNewFile,BufRead *.html.ep let mojo_highlight_data = 1
+augroup END
 
 " Template for *.pm {{{
-function! s:pm_template()
+func! s:pm_template()
   let path = substitute(expand('%'), '.*lib/', '', 'g')
   let path = substitute(path, '[\\/]', '::', 'g')
   let path = substitute(path, '\.pm$', '', 'g')
@@ -404,8 +397,8 @@ function! s:pm_template()
   call append(6, '')
   call append(7, '1;')
   call cursor(6, 0)
-endfunction
-au BufNewFile *.pm call s:pm_template()
+endf
+au PerlAutoCmd BufNewFile *.pm call s:pm_template()
 "}}}
 
 " Detect misprints about package name {{{
@@ -423,12 +416,12 @@ func! s:check_package_name()
   let name = substitute(s:get_package_name(), '::', '/', 'g') . '.pm'
   if path[-len(name):] != name
     echohl WarningMsg
-    echomsg "Maybe package name is different from stored path."
+    echomsg "Maybe written package name is wrong."
     echomsg "Please correct it."
     echohl None
   endif
 endf
-au! BufWritePost *.pm call s:check_package_name()
+au PerlAutoCmd BufWritePost *.pm call s:check_package_name()
 "}}}
 
 " Perltidy {{{
@@ -439,61 +432,68 @@ map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "----------------------------------------------------------------------------
 " JavaScript
 "----------------------------------------------------------------------------
-au FileType javascript NeoBundleSource
-      \ vim-javascript
-au FileType javascript set shiftwidth=4 tabstop=4
+augroup JavaScriptAutoCmd
+  au!
+  au FileType javascript NeoBundleSource
+        \ vim-javascript
+  au FileType javascript set shiftwidth=4 tabstop=4
+augroup END
 
 "----------------------------------------------------------------------------
 " HTML/CSS
 "----------------------------------------------------------------------------
-au FileType html,css NeoBundleSource
-      \ zencoding-vim
-      \ vim-css3-syntax
-      \ vim-css-color
-      \ html5.vim
+augroup HtmlAutoCmd
+  au!
+  au FileType html,css NeoBundleSource
+        \ zencoding-vim
+        \ vim-css3-syntax
+        \ vim-css-color
+        \ html5.vim
+augroup END
 
 "----------------------------------------------------------------------------
 " Ruby
 "----------------------------------------------------------------------------
-au FileType ruby NeoBundleSource
-      \ vim-ruby
-      \ vim-rspec
-      \ vim-rails
-      \ rails.vim
-      \ neco-ruby-keyword-args
-      \ unite-rake
-      \ unite-rails
-      \ unite-ruby-require.vim
-      \ ruby-matchit
-      \ vim-textobj-ruby
-au FileType ruby set shiftwidth=2 tabstop=2
+augroup RubyAutoCmd
+  au!
+  au FileType ruby NeoBundleSource
+        \ vim-ruby
+        \ vim-rspec
+        \ vim-rails
+        \ rails.vim
+        \ neco-ruby-keyword-args
+        \ unite-rake
+        \ unite-rails
+        \ unite-ruby-require.vim
+        \ ruby-matchit
+        \ vim-textobj-ruby
+  au FileType ruby set shiftwidth=2 tabstop=2
+augroup END
 
 "----------------------------------------------------------------------------
 " Java
 "----------------------------------------------------------------------------
-au FileType java NeoBundleSource
-      \ javacomplete
-      \ jcommenter.vim
-      \ java_getset.vim
+augroup JavaAutoCmd
+  au!
+  au FileType java NeoBundleSource
+        \ javacomplete
+        \ jcommenter.vim
+        \ java_getset.vim
+  au FileType java setlocal
+        \ omnifunc=javacomplete#Complete
+        \ completefunc=javacomplete#CompleteParamsInfo
+  au FileType java set shiftwidth=4 tabstop=4
+  au FileType java map <C-c><C-j> :call JCommentWriter()<CR> "Set key map for jcommenter
+augroup END
 
-au FileType java setlocal
-      \ omnifunc=javacomplete#Complete
-      \ completefunc=javacomplete#CompleteParamsInfo
 
-au FileType java set
-      \ shiftwidth=4
-      \ tabstop=4
-
-"" Set key map for jcommenter
-au FileType java map <C-c><C-j> :call JCommentWriter()<CR>
-
-"" Apply K&R style block to java_getset (This is unique function)
+" Apply K&R style block to java_getset (This is unique function)
 let b:javagetset_enable_K_and_R=1
 
-"" Add "this" keyword to member of getter and setter
+" Add "this" keyword to member of getter and setter
 let b:javagetset_add_this=1
 
-"" Syntax highlight
+" Syntax highlight
 let g:java_highlight_all=1
 let g:java_highlight_debug=1
 let g:java_allow_cpp_keywords=1
