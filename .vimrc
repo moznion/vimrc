@@ -30,7 +30,6 @@ NeoBundle 'Lokaltog/vim-powerline'
 "" Input Support
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-NeoBundle 'yanktmp.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tomtom/tcomment_vim'
@@ -174,13 +173,6 @@ let g:quickrun_config = {
 \}
 au FileType quickrun nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType quickrun inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-
-"----------------------------------------------------------------------------
-"For yanktmp
-"----------------------------------------------------------------------------
-map <silent> sy :call YanktmpYank()<CR>
-map <silent> sp :call YanktmpPaste_p()<CR>
-map <silent> sP :call YanktmpPaste_P()<CR>
 
 "----------------------------------------------------------------------------
 " For tcomment_vim
