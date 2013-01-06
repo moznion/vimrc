@@ -220,6 +220,12 @@ let g:quickrun_config = {
 \   'outputter/buffer/split': ':botright 8sp',
 \ }
 \}
+map <silent>\r :QuickRun<CR>
+augroup QuickrunAutoCmd
+    au!
+    au FileType quickrun nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+    au FileType quickrun inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+augroup END
 
 "----------------------------------------------------------------------------
 " For tcomment_vim
@@ -265,6 +271,17 @@ augroup UniteAutoCmd
   au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
   au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 augroup END
+
+"----------------------------------------------------------------------------
+" vim-surround
+"----------------------------------------------------------------------------
+func! b:surroundAutoDetect(basicCommand)
+  let s:autoSurroundCommand = a:basicCommand . getline('.')[col('.')-1]
+  silent exe 'normal!' . s:autoSurroundCommand
+endf
+nnoremap <silent>dii :call b:surroundAutoDetect('di')<CR>
+nnoremap <silent>yii :call b:surroundAutoDetect('yi')<CR>
+nnoremap <silent>cii :call b:surroundAutoDetect('ci')<CR>
 
 "----------------------------------------------------------------------------
 " Searching
@@ -367,8 +384,15 @@ inoremap :set iminsert=0
 "}}}
 
 " Kill the force killing {{{
-noremap ZZ <NOP>
-noremap ZQ <NOP>
+nnoremap ZZ <NOP>
+nnoremap ZQ <NOP>
+"}}}
+
+" Buffer {{{
+nnoremap <silent><C-w>q     :bd<CR>
+nnoremap <silent><C-w><C-q> :bd<CR>
+nnoremap <silent><C-n>  :bn<CR>
+nnoremap <silent><C-p>  :bp<CR>
 "}}}
 
 "----------------------------------------------------------------------------
