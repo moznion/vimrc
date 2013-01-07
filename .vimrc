@@ -138,6 +138,21 @@ endif
 "----------------------------------------------------------------------------
 " Initialize
 "----------------------------------------------------------------------------
+" Reload .vimrc
+nnoremap <silent> <C-s><C-r> :<C-U>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+
+" Open .vimrc on new buffer
+nnoremap <silent> <C-s><C-e> :e $MYVIMRC<CR>
+
+" Open snippet definition file {{{
+let s:snippetDir = $HOME . '/.vim/snippets/'
+func! b:openSnippetFile()
+  let s:snippetLocate = s:snippetDir . &filetype . '.snippets'
+  execute ':e' . s:snippetLocate
+endf
+nnoremap <silent> <C-s><C-s> :call b:openSnippetFile()<CR>
+"}}}
+
 augroup detectfiletype
   au!
   au BufNewFile,BufRead *.t setf perl
@@ -275,13 +290,23 @@ augroup END
 "----------------------------------------------------------------------------
 " vim-surround
 "----------------------------------------------------------------------------
-func! b:surroundAutoDetect(basicCommand)
-  let s:autoSurroundCommand = a:basicCommand . getline('.')[col('.')-1]
-  silent exe 'normal!' . s:autoSurroundCommand
+func! b:surroundAutoDetect(command)
+  let s:command = (a:command == 'ci') ? 'di' : a:command
+  let s:autoSurroundCommand = s:command . getline('.')[col('.')-1]
+
+  if a:command == 'ci'
+    silent execute 'normal!' . s:autoSurroundCommand
+    startinsert
+  else
+    call feedkeys(s:autoSurroundCommand)
+  endif
 endf
+
 nnoremap <silent>dii :call b:surroundAutoDetect('di')<CR>
 nnoremap <silent>yii :call b:surroundAutoDetect('yi')<CR>
 nnoremap <silent>cii :call b:surroundAutoDetect('ci')<CR>
+nnoremap <silent>css :call b:surroundAutoDetect('cs')<CR>
+nnoremap <silent>dss :call b:surroundAutoDetect('ds')<CR>
 
 "----------------------------------------------------------------------------
 " Searching
@@ -414,7 +439,7 @@ colorscheme molokai
 " Highlighting noisy white spaces {{{
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 highlight TrailingSpaces ctermbg=red guibg=#FF0000
-highlight Tabs ctermbg=gray guibg=#808080
+highlight Tabs ctermbg=black guibg=#000000
 augroup HighlightingNoisySpaces
   au!
   au BufNewFile,BufRead * call matchadd('ZenkakuSpace', '　')
