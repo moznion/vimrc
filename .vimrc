@@ -414,10 +414,12 @@ colorscheme molokai
 " Highlighting noisy white spaces {{{
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 highlight TrailingSpaces ctermbg=red guibg=#FF0000
+highlight Tabs ctermbg=gray guibg=#808080
 augroup HighlightingNoisySpaces
   au!
   au BufNewFile,BufRead * call matchadd('ZenkakuSpace', '　')
   au BufNewFile,BufRead * call matchadd('TrailingSpaces', ' \{-1,}$')
+  au BufNewFile,BufRead * call matchadd('Tabs', '\t')
 augroup END
 "}}}
 
