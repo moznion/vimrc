@@ -59,7 +59,7 @@ endf
 " Ruby {{{
 NeoBundleLazy 'vim-ruby/vim-ruby'
 NeoBundleLazy 'taq/vim-rspec'
-NeoBundleLazy 'taichouchou2/vim-rails'
+NeoBundleLazy 'tpope/vim-rails'
 NeoBundleLazy 'romanvbabenko/rails.vim'
 NeoBundleLazy 'rhysd/neco-ruby-keyword-args'
 NeoBundleLazy 'ujihisa/unite-rake'
