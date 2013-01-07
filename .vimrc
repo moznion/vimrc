@@ -411,9 +411,14 @@ set t_Co=256
 colorscheme molokai
 "}}}
 
-" Showing full-pitch space {{{
+" Highlighting noisy white spaces {{{
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-au MyAutoCmd BufNewFile,BufRead * match ZenkakuSpace /　/
+highlight TrailingSpaces ctermbg=red guibg=#FF0000
+augroup HighlightingNoisySpaces
+  au!
+  au BufNewFile,BufRead * call matchadd('ZenkakuSpace', '　')
+  au BufNewFile,BufRead * call matchadd('TrailingSpaces', ' \{-1,}$')
+augroup END
 "}}}
 
 " Make line only the current window
