@@ -4,6 +4,13 @@
 " Initialize for NeoBundle {{{
 set nocompatible   "Purge compatible with Vi
 
+" Switch the protocol used by NeoBundle,
+" according to description in '.vimrc.local' {{{
+if filereadable($HOME . '/.vimrc.local')
+  source $HOME/.vimrc.local
+endif
+"}}} Default Protocol: 'git'
+
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
