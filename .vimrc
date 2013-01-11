@@ -118,7 +118,7 @@ endf
 " HTML/CSS {{{
 NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
-NeoBundleLazy 'skammer/vim-css-color'
+NeoBundleLazy 'lilydjwg/colorizer'
 NeoBundleLazy 'othree/html5.vim', {
 \   'build': {
 \       'cygwin': 'make',
@@ -130,7 +130,7 @@ func! s:LazyLoadForHtmlCss()
   au FileType html,css NeoBundleSource
         \ zencoding-vim
         \ vim-css3-syntax
-        \ vim-css-color
+        \ colorizer
         \ html5.vim
 endf
 "}}}
@@ -546,6 +546,8 @@ augroup END
 augroup HtmlCssAutoCmd
   au!
   call s:LazyLoadForHtmlCss()
+  au FileType html,css ColorHighlight
+  au FileTYpe html,css nnoremap <C-c><C-t> :<C-u>ColorToggle<CR>
 augroup END
 
 "----------------------------------------------------------------------------
