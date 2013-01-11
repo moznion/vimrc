@@ -45,6 +45,8 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'h1mesuke/textobj-wiw'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'tsaleh/vim-matchit'
 "}}}
 
 " Perl {{{
