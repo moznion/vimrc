@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 "----------------------------------------------------------------------------
 " NeoBundle
 "----------------------------------------------------------------------------
@@ -172,6 +174,8 @@ augroup END
 
 augroup MyAutoCmd
   au!
+  au BufNewFile * set fileformat=unix
+  au BufNewFile * set fileencoding=utf-8
 augroup END
 
 filetype plugin indent on
