@@ -95,9 +95,13 @@ endf
 
 " JavaScript {{{
 NeoBundleLazy 'pangloss/vim-javascript'
+NeoBundleLazy 'jelera/vim-javascript-syntax'
+NeoBundleLazy 'teramako/jscomplete-vim'
 func! s:LazyLoadForJavaScript()
   au FileType javascript NeoBundleSource
         \ vim-javascript
+        \ vim-javascript-syntax
+        \ jscomplete-vim
 endf
 "}}}
 
