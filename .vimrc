@@ -367,7 +367,12 @@ au MyAutoCmd BufNewFile,BufRead * set iminsert=0  "Reset the Japanese input meth
 " Checking spelling {{{
 set spell
 au MyAutoCmd BufNewFile,BufRead *.snippets set nospell
-nnoremap <C-N><C-S> :<C-u>set spell!<Return>
+nnoremap <C-N><C-S> :call b:toggleSettingSpelling()<CR>
+
+func! b:toggleSettingSpelling()
+  set spell!
+  set spell?
+endf
 "}}}
 
 " Removing white spaces on end of line when saved file {{{
