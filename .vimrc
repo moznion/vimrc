@@ -426,6 +426,7 @@ inoremap :set iminsert=0
 "}}}
 
 " Kill the force killing {{{
+nnoremap <C-Z> <NOP>
 nnoremap ZZ <NOP>
 nnoremap ZQ <NOP>
 "}}}
