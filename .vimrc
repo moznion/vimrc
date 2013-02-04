@@ -410,6 +410,7 @@ augroup SkeletonAu
   au!
   au BufNewFile *.pl 0r ~/.vim/skeltons/skelton.pl
   au BufNewFile *.t 0r ~/.vim/skeltons/skelton.t
+  au BufNewFile *.rb 0r ~/.vim/skeltons/skelton.rb
 augroup END
 "}}}
 
