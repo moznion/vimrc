@@ -308,14 +308,30 @@ augroup END
 " vim-surround
 "----------------------------------------------------------------------------
 func! b:surroundAutoDetect(command)
-  let s:command = (a:command == 'ci') ? 'di' : a:command
-  let s:autoSurroundCommand = s:command . getline('.')[col('.')-1]
+  let l:command = (a:command == 'ci') ? 'di' : a:command
+  let l:command = (a:command == 'ts') ? 'cs' : l:command
+  let l:currentChar = getline('.')[col('.')-1]
+  let l:autoSurroundCommand = l:command . l:currentChar
 
   if a:command == 'ci'
-    silent execute 'normal!' . s:autoSurroundCommand
+    silent execute 'normal!' . l:autoSurroundCommand
     startinsert
+  elseif a:command == 'ts' " toggle some surround characters
+    let l:replaceTarget = ''
+    if l:currentChar == '{' || '}'
+      let l:replaceTarget = '('
+    elseif l:currentChar == '(' || ')'
+      let l:replaceTarget = '{'
+    elseif l:currentChar == "'"
+      let l:replaceTarget = '"'
+    elseif l:currentChar == '"'
+      let l:replaceTarget = "'"
+    end
+    if l:replaceTarget != ''
+      call feedkeys(l:autoSurroundCommand . l:replaceTarget)
+    endif
   else
-    call feedkeys(s:autoSurroundCommand)
+    call feedkeys(l:autoSurroundCommand)
   endif
 endf
 
@@ -324,6 +340,7 @@ nnoremap <silent>yii :call b:surroundAutoDetect('yi')<CR>
 nnoremap <silent>cii :call b:surroundAutoDetect('ci')<CR>
 nnoremap <silent>css :call b:surroundAutoDetect('cs')<CR>
 nnoremap <silent>dss :call b:surroundAutoDetect('ds')<CR>
+nnoremap <silent>tss :call b:surroundAutoDetect('ts')<CR>
 
 "----------------------------------------------------------------------------
 " Searching
