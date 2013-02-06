@@ -384,7 +384,7 @@ au MyAutoCmd BufNewFile,BufRead * set iminsert=0  "Reset the Japanese input meth
 " Checking spelling {{{
 set spell
 au MyAutoCmd BufNewFile,BufRead *.snippets set nospell
-nnoremap <C-N><C-S> :call b:toggleSettingSpelling()<CR>
+nnoremap <C-S><C-N> :call b:toggleSettingSpelling()<CR>
 
 func! b:toggleSettingSpelling()
   set spell!
