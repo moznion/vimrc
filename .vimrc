@@ -474,8 +474,10 @@ set laststatus=2
 set cmdheight=2
 
 " Setting of color scheme {{{
-set t_Co=256
-colorscheme molokai
+if !has('win32unix')
+  set t_Co=256
+  colorscheme molokai
+endif
 "}}}
 
 " Highlighting noisy white spaces {{{
