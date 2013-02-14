@@ -69,7 +69,6 @@ endf
 
 " Ruby {{{
 NeoBundleLazy 'vim-ruby/vim-ruby'
-NeoBundleLazy 'taq/vim-rspec'
 NeoBundleLazy 'tpope/vim-rails'
 NeoBundleLazy 'romanvbabenko/rails.vim'
 NeoBundleLazy 'rhysd/neco-ruby-keyword-args'
@@ -78,6 +77,8 @@ NeoBundleLazy 'basyura/unite-rails'
 NeoBundleLazy 'rhysd/unite-ruby-require.vim'
 NeoBundleLazy 'vim-scripts/ruby-matchit'
 NeoBundleLazy 'rhysd/vim-textobj-ruby'
+NeoBundleLazy 'skwp/vim-ruby-conque'
+NeoBundleLazy 'skwp/vim-rspec'
 func! s:LazyLoadForRuby()
   au FileType ruby NeoBundleSource
         \ vim-ruby
