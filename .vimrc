@@ -605,6 +605,16 @@ augroup RubyAutoCmd
   au FileType ruby set shiftwidth=2 tabstop=2
 augroup END
 
+" Template for rspec file {{{
+func! s:rspec_template()
+  call append(3, "require File.expand_path(File.dirname(__FILE__) + '/spec_helper')")
+  call append(4, '')
+  call append(5, 'describe <className> do')
+  call append(6, '')
+  call append(7, 'end')
+endf
+au RubyAutoCmd BufNewFile *_spec.rb call s:rspec_template()
+
 "----------------------------------------------------------------------------
 " Java
 "----------------------------------------------------------------------------
