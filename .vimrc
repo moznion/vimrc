@@ -609,7 +609,7 @@ augroup END
 func! s:rspec_template()
   call append(3, "require File.expand_path(File.dirname(__FILE__) + '/spec_helper')")
   call append(4, '')
-  call append(5, 'describe <className> do')
+  call append(5, 'describe <description> do')
   call append(6, '')
   call append(7, 'end')
 endf
