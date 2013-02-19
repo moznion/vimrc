@@ -52,19 +52,21 @@ NeoBundle 'tsaleh/vim-matchit'
 "}}}
 
 " Perl {{{
-NeoBundleLazy 'vim-perl/vim-perl'
-NeoBundleLazy 'hotchpotch/perldoc-vim'
-NeoBundleLazy 'c9s/perlomni.vim'
-NeoBundleLazy 'moznion/corelist.vim'
-NeoBundleLazy 'moznion/perl-module-version.vim'
-func! s:LazyLoadForPerl()
-  au FileType perl NeoBundleSource
-        \ vim-perl
-        \ perldoc-vim
-        \ perlomni.vim
-        \ corelist.vim
-        \ perl-module-version.vim
-endf
+NeoBundleLazy 'vim-perl/vim-perl', {
+                \ 'autoload': { 'filetypes': 'perl' }
+              \ }
+NeoBundleLazy 'hotchpotch/perldoc-vim', {
+                \ 'autoload': { 'filetypes': 'perl' }
+              \ }
+NeoBundleLazy 'c9s/perlomni.vim', {
+                \ 'autoload': { 'filetypes': 'perl' }
+              \ }
+NeoBundleLazy 'moznion/corelist.vim', {
+                \ 'autoload': { 'filetypes': 'perl' }
+              \ }
+NeoBundleLazy 'moznion/perl-module-version.vim', {
+                \ 'autoload': { 'filetypes': 'perl' }
+              \ }
 "}}}
 
 " Ruby {{{
@@ -109,15 +111,15 @@ NeoBundleLazy 'taichouchou2/vim-rsense', {
 "}}}
 
 " JavaScript {{{
-NeoBundleLazy 'pangloss/vim-javascript'
-NeoBundleLazy 'jelera/vim-javascript-syntax'
-NeoBundleLazy 'teramako/jscomplete-vim'
-func! s:LazyLoadForJavaScript()
-  au FileType javascript NeoBundleSource
-        \ vim-javascript
-        \ vim-javascript-syntax
-        \ jscomplete-vim
-endf
+NeoBundleLazy 'pangloss/vim-javascript', {
+                \ 'autoload': { 'filetypes': 'javascript' }
+              \ }
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+                \ 'autoload': { 'filetypes': 'javascript' }
+              \ }
+NeoBundleLazy 'teramako/jscomplete-vim', {
+                \ 'autoload': { 'filetypes': 'javascript' }
+              \ }
 "}}}
 
 " Java {{{
@@ -127,35 +129,34 @@ NeoBundleLazy 'vim-scripts/javacomplete', {
 \       'mac': 'javac autoload/Reflection.java',
 \       'unix': 'javac autoload/Reflection.java',
 \   },
+\   'autoload': { 'filetypes': 'java' }
 \}
-NeoBundleLazy 'moznion/jcommenter.vim'
-NeoBundleLazy 'moznion/java_getset.vim'
-func! s:LazyLoadForJava()
-  au FileType java NeoBundleSource
-        \ javacomplete
-        \ jcommenter.vim
-        \ java_getset.vim
-endf
+NeoBundleLazy 'moznion/jcommenter.vim', {
+                \ 'autoload': { 'filetypes': 'java' }
+              \ }
+NeoBundleLazy 'moznion/java_getset.vim', {
+                \ 'autoload': { 'filetypes': 'java' }
+              \ }
 "}}}
 
 " HTML/CSS {{{
-NeoBundleLazy 'mattn/zencoding-vim'
-NeoBundleLazy 'hail2u/vim-css3-syntax'
-NeoBundleLazy 'lilydjwg/colorizer'
+NeoBundleLazy 'mattn/zencoding-vim', {
+                \ 'autoload': { 'filetypes': ['html', 'css'] }
+              \ }
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+                \ 'autoload': { 'filetypes': ['html', 'css'] }
+              \ }
+NeoBundleLazy 'lilydjwg/colorizer', {
+                \ 'autoload': { 'filetypes': ['html', 'css'] }
+              \ }
 NeoBundleLazy 'othree/html5.vim', {
-\   'build': {
-\       'cygwin': 'make',
-\       'mac': 'make',
-\       'unix': 'make',
-\   },
-\}
-func! s:LazyLoadForHtmlCss()
-  au FileType html,css NeoBundleSource
-        \ zencoding-vim
-        \ vim-css3-syntax
-        \ colorizer
-        \ html5.vim
-endf
+                \ 'build': {
+                  \ 'cygwin': 'make',
+                  \ 'mac': 'make',
+                  \ 'unix': 'make',
+                \ },
+                \ 'autoload': { 'filetypes': ['html', 'css'] }
+              \ }
 "}}}
 
 " Installation check.
@@ -536,7 +537,6 @@ augroup END
 "----------------------------------------------------------------------------
 augroup PerlAutoCmd
   au!
-  call s:LazyLoadForPerl()
   au FileType perl set shiftwidth=4 tabstop=4
 augroup END
 
@@ -597,7 +597,6 @@ map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "----------------------------------------------------------------------------
 augroup JavaScriptAutoCmd
   au!
-  call s:LazyLoadForJavaScript()
   au FileType javascript set shiftwidth=4 tabstop=4
 augroup END
 
@@ -606,7 +605,6 @@ augroup END
 "----------------------------------------------------------------------------
 augroup HtmlCssAutoCmd
   au!
-  call s:LazyLoadForHtmlCss()
   au FileType html,css ColorHighlight
   au FileTYpe html,css nnoremap <C-c><C-t> :<C-u>ColorToggle<CR>
 augroup END
@@ -643,7 +641,6 @@ au RubyAutoCmd BufNewFile *_spec.rb call s:rspec_template()
 "----------------------------------------------------------------------------
 augroup JavaAutoCmd
   au!
-  call s:LazyLoadForJava()
   au FileType java setlocal
         \ omnifunc=javacomplete#Complete
         \ completefunc=javacomplete#CompleteParamsInfo
