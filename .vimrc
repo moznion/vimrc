@@ -624,6 +624,10 @@ augroup END
 let g:neocomplcache#sources#rsense#home_directory = expand('~/.donki/rsense')
 let g:rsenseHome = g:neocomplcache#sources#rsense#home_directory
 
+" RSpec
+nnoremap <silent>,rs :RunSpec<CR>
+nnoremap <silent>,rl :RunSpecLine<CR>
+
 " Template for rspec file {{{
 func! s:rspec_template()
   call append(3, "require File.expand_path(File.dirname(__FILE__) + '/spec_helper')")
