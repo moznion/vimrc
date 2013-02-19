@@ -68,30 +68,41 @@ endf
 "}}}
 
 " Ruby {{{
-NeoBundleLazy 'vim-ruby/vim-ruby'
-NeoBundleLazy 'tpope/vim-rails'
-NeoBundleLazy 'romanvbabenko/rails.vim'
-NeoBundleLazy 'rhysd/neco-ruby-keyword-args'
-NeoBundleLazy 'ujihisa/unite-rake'
-NeoBundleLazy 'basyura/unite-rails'
-NeoBundleLazy 'rhysd/unite-ruby-require.vim'
-NeoBundleLazy 'vim-scripts/ruby-matchit'
-NeoBundleLazy 'rhysd/vim-textobj-ruby'
-NeoBundleLazy 'skwp/vim-ruby-conque'
-NeoBundleLazy 'skwp/vim-rspec'
-func! s:LazyLoadForRuby()
-  au FileType ruby NeoBundleSource
-        \ vim-ruby
-        \ vim-rspec
-        \ vim-rails
-        \ rails.vim
-        \ neco-ruby-keyword-args
-        \ unite-rake
-        \ unite-rails
-        \ unite-ruby-require.vim
-        \ ruby-matchit
-        \ vim-textobj-ruby
-endf
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'tpope/vim-rails', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'romanvbabenko/rails.vim', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'ujihisa/unite-rake', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'basyura/unite-rails', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'vim-scripts/ruby-matchit', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'rhysd/vim-textobj-ruby', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'skwp/vim-rspec', {
+                \ 'depends': ['rson/vim-conque', 'skwp/vim-ruby-conque'],
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
+NeoBundleLazy 'Shougo/neocomplcache-rsense', {
+                \ 'depends': 'Shougo/neocomplcache',
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
 "}}}
 
 " JavaScript {{{
@@ -199,6 +210,8 @@ let g:neocomplcache_enable_underbar_completion = 1      "Use under bar completio
 let g:neocomplcache_enable_camel_case_completion = 1    "Use camel case completion.
 let g:neocomplcache_snippets_dir = "~/.vim/snippets"
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache#sources#rsense#home_directory = expand('~/.donki/rsense')
+let g:neocomplcache_skip_auto_completion_time = '0.3'
 
 let g:neocomplcache_ctags_arguments_list = {
 \ 'perl' : '-R -h ".pm"'
@@ -601,7 +614,6 @@ augroup END
 "----------------------------------------------------------------------------
 augroup RubyAutoCmd
   au!
-  call s:LazyLoadForRuby()
   au FileType ruby set shiftwidth=2 tabstop=2
 augroup END
 
