@@ -103,6 +103,9 @@ NeoBundleLazy 'Shougo/neocomplcache-rsense', {
                 \ 'depends': 'Shougo/neocomplcache',
                 \ 'autoload': { 'filetypes': 'ruby' }
               \ }
+NeoBundleLazy 'taichouchou2/vim-rsense', {
+                \ 'autoload': { 'filetypes': 'ruby' }
+              \ }
 "}}}
 
 " JavaScript {{{
@@ -210,7 +213,6 @@ let g:neocomplcache_enable_underbar_completion = 1      "Use under bar completio
 let g:neocomplcache_enable_camel_case_completion = 1    "Use camel case completion.
 let g:neocomplcache_snippets_dir = "~/.vim/snippets"
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache#sources#rsense#home_directory = expand('~/.donki/rsense')
 let g:neocomplcache_skip_auto_completion_time = '0.3'
 
 let g:neocomplcache_ctags_arguments_list = {
@@ -615,7 +617,12 @@ augroup END
 augroup RubyAutoCmd
   au!
   au FileType ruby set shiftwidth=2 tabstop=2
+  au FileType ruby set omnifunc=RSenseCompleteFunction
 augroup END
+
+" RSense
+let g:neocomplcache#sources#rsense#home_directory = expand('~/.donki/rsense')
+let g:rsenseHome = g:neocomplcache#sources#rsense#home_directory
 
 " Template for rspec file {{{
 func! s:rspec_template()
