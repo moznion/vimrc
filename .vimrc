@@ -160,6 +160,15 @@ NeoBundleLazy 'othree/html5.vim', {
               \ }
 "}}}
 
+" Arduino {{{
+NeoBundleLazy 'tclem/vim-arduino', {
+                \ 'autoload': { 'filetypes': ['arduino'] }
+              \ }
+NeoBundleLazy 'sudar/vim-arduino-syntax', {
+                \ 'autoload': { 'filetypes': ['arduino'] }
+              \ }
+" }}}
+
 " Installation check.
 if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
@@ -662,3 +671,11 @@ let g:java_highlight_debug=1
 let g:java_allow_cpp_keywords=1
 let g:java_space_errors=1
 let g:java_highlight_functions=1
+
+"----------------------------------------------------------------------------
+" Arduino
+"----------------------------------------------------------------------------
+augroup ArduinoAutoCmd
+  au!
+  au BufNewFile,BufRead *.ino set filetype=arduino
+augroup END
