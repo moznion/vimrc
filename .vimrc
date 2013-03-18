@@ -455,6 +455,7 @@ augroup SkeletonAu
   au BufNewFile *.pl 0r ~/.vim/skeletons/skeleton.pl
   au BufNewFile *.t 0r ~/.vim/skeletons/skeleton.t
   au BufNewFile *.rb 0r ~/.vim/skeletons/skeleton.rb
+  au BufNewFile Makefile.PL 0r ~/.vim/skeletons/skeleton.Makefile.PL
 augroup END
 "}}}
 
