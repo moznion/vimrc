@@ -549,6 +549,7 @@ augroup END
 augroup PerlAutoCmd
   au!
   au FileType perl set shiftwidth=4 tabstop=4
+  au BufNewFile,BufRead cpanfile set filetype=perl
 augroup END
 
 augroup eplAutoCmd
