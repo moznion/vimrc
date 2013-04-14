@@ -231,8 +231,9 @@ let g:neocomplcache_ctags_arguments_list = {
 \}
 
 let g:neocomplcache_dictionary_filetype_lists = {
-\ 'default': '',
-\ 'perl'   : $HOME . '/.vim/dict/perl.dict'
+\ 'default'  : '',
+\ 'perl'     : $HOME . '/.vim/dict/perl.dict',
+\ 'cpanfile' : $HOME . '/.vim/dict/cpanfile.dict'
 \}
 
 " Define keyword. {{{
@@ -549,7 +550,7 @@ augroup END
 augroup PerlAutoCmd
   au!
   au FileType perl set shiftwidth=4 tabstop=4
-  au BufNewFile,BufRead cpanfile set filetype=perl
+  au BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
 augroup END
 
 augroup eplAutoCmd
