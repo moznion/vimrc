@@ -68,6 +68,12 @@ NeoBundleLazy 'moznion/corelist.vim', {
 NeoBundleLazy 'moznion/perl-module-version.vim', {
                 \ 'autoload': { 'filetypes': 'perl' }
               \ }
+NeoBundleLazy 'moznion/vim-cpanfile', {
+                \ 'autoload': { 'filetypes': 'cpanfile' }
+              \ }
+NeoBundleLazy 'moznion/syntastic-cpanfile', {
+                \ 'autoload': { 'filetypes': 'cpanfile' }
+              \ }
 "}}}
 
 " Ruby {{{
@@ -233,7 +239,7 @@ let g:neocomplcache_ctags_arguments_list = {
 let g:neocomplcache_dictionary_filetype_lists = {
 \ 'default'  : '',
 \ 'perl'     : $HOME . '/.vim/dict/perl.dict',
-\ 'cpanfile' : $HOME . '/.vim/dict/cpanfile.dict'
+\ 'cpanfile' : $HOME . '/.vim/bundle/vim-cpanfile/dict/cpanfile.dict'
 \}
 
 " Define keyword. {{{
@@ -427,7 +433,7 @@ func! s:RemoveWhiteSpaceAtTail()
     :%s/\s\+$//ge
   endif
 endf
-"}}}
+" }}}
 
 " For pair characters {{{
 imap {} {}<Left>
@@ -550,7 +556,8 @@ augroup END
 augroup PerlAutoCmd
   au!
   au FileType perl set shiftwidth=4 tabstop=4
-  au BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
+  au BufNewFile,BufRead cpanfile set filetype=cpanfile
+  au BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
 augroup END
 
 augroup eplAutoCmd
@@ -629,6 +636,10 @@ augroup RubyAutoCmd
   au!
   au FileType ruby set shiftwidth=2 tabstop=2
   au FileType ruby set omnifunc=RSenseCompleteFunction
+augroup END
+
+augroup ERubyAutoCmd
+  au FileType eruby set shiftwidth=2 tabstop=2
 augroup END
 
 " RSense
