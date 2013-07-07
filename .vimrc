@@ -693,3 +693,11 @@ augroup ArduinoAutoCmd
   au!
   au BufNewFile,BufRead *.ino set filetype=arduino
 augroup END
+
+"----------------------------------------------------------------------------
+" Markdown
+"----------------------------------------------------------------------------
+augroup MarkdownAutoCmd
+  au!
+  au BufNewFile,BufRead *.md set filetype=markdown
+augroup END
