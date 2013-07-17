@@ -37,6 +37,7 @@ NeoBundle 'moznion/shabadou.vim-animation', { 'depends': 'osyo-manga/shabadou.vi
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'moznion/unite-git-conflict.vim'
 NeoBundle 'molokai'
 "}}}
 
@@ -324,6 +325,8 @@ noremap <silent><Leader>uy : <C-u>Unite -buffer-name=register register<CR>
 noremap <silent><Leader>uu : <C-u>Unite buffer file_mru<CR>
 " Show all of list
 noremap <silent><Leader>ua : <C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" Show git conflicts
+noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
 augroup UniteAutoCmd
   au!
