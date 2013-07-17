@@ -704,3 +704,11 @@ augroup MarkdownAutoCmd
   au!
   au BufNewFile,BufRead *.md set filetype=markdown
 augroup END
+
+"----------------------------------------------------------------------------
+" Haskell
+"----------------------------------------------------------------------------
+augroup HaskellAutoCmd
+  au!
+  au FileType haskell set shiftwidth=2 tabstop=2
+augroup END
