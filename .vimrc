@@ -75,6 +75,9 @@ NeoBundleLazy 'moznion/vim-cpanfile', {
 NeoBundleLazy 'moznion/syntastic-cpanfile', {
                 \ 'autoload': { 'filetypes': 'cpanfile' }
               \ }
+NeoBundleLazy 'motemen/xslate-vim', {
+                \ 'autoload': { 'filetypes': 'xslate' }
+              \ }
 "}}}
 
 " Ruby {{{
@@ -561,6 +564,8 @@ augroup PerlAutoCmd
   au FileType perl set shiftwidth=4 tabstop=4
   au BufNewFile,BufRead cpanfile set filetype=cpanfile
   au BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
+  au BufNewFile,BufRead *.tx set filetype=xslate
+  au BufNewFile,BufRead *.tx set syntax=xslate
 augroup END
 
 augroup eplAutoCmd
