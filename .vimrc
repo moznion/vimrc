@@ -78,6 +78,9 @@ NeoBundleLazy 'moznion/syntastic-cpanfile', {
 NeoBundleLazy 'motemen/xslate-vim', {
                 \ 'autoload': { 'filetypes': 'xslate' }
               \ }
+NeoBundleLazy 'moznion/plenv.vim', {
+                \ 'autoload': { 'filetypes': 'perl' }
+              \ }
 "}}}
 
 " Ruby {{{
@@ -441,15 +444,6 @@ func! s:RemoveWhiteSpaceAtTail()
 endf
 " }}}
 
-" For pair characters {{{
-imap {} {}<Left>
-imap [] []<Left>
-imap () ()<Left>
-imap "" ""<Left>
-imap '' ''<Left>
-imap <> <><Left>
-"}}}
-
 "----------------------------------------------------------------------------
 " When open the file
 "----------------------------------------------------------------------------
@@ -625,7 +619,7 @@ map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "----------------------------------------------------------------------------
 augroup JavaScriptAutoCmd
   au!
-  au FileType javascript set shiftwidth=4 tabstop=4
+  au FileType javascript set shiftwidth=2 tabstop=2
 augroup END
 
 "----------------------------------------------------------------------------
@@ -634,6 +628,7 @@ augroup END
 augroup HtmlCssAutoCmd
   au!
   au FileType html,css ColorHighlight
+  au FileType html,css set shiftwidth=2 tabstop=2
   au FileTYpe html,css nnoremap <C-c><C-t> :<C-u>ColorToggle<CR>
 augroup END
 
