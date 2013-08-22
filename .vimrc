@@ -154,7 +154,7 @@ NeoBundleLazy 'moznion/java_getset.vim', {
 "}}}
 
 " HTML/CSS {{{
-NeoBundleLazy 'mattn/zencoding-vim', {
+NeoBundleLazy 'mattn/emmet-vim', {
                 \ 'autoload': { 'filetypes': ['html', 'css'] }
               \ }
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
