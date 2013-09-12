@@ -39,6 +39,8 @@ NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'moznion/unite-git-conflict.vim'
 NeoBundle 'molokai'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'moznion/hateblo.vim'
 "}}}
 
 " Input Support {{{
@@ -182,6 +184,12 @@ NeoBundleLazy 'sudar/vim-arduino-syntax', {
               \ }
 " }}}
 
+" Go {{{
+NeoBundleLazy 'jnwhiteh/vim-golang', {
+                \ 'autoload': { 'filetypes': ['go'] }
+              \ }
+" }}}
+
 " Installation check.
 if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
@@ -262,6 +270,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
 "}}}
 
 " Key mapping for neocomplcache {{{
@@ -560,6 +569,8 @@ augroup PerlAutoCmd
   au BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
   au BufNewFile,BufRead *.tx set filetype=xslate
   au BufNewFile,BufRead *.tx set syntax=xslate
+  au BufNewFile,BufRead *.tt set filetype=xslate
+  au BufNewFile,BufRead *.tt set syntax=xslate
 augroup END
 
 augroup eplAutoCmd
@@ -619,7 +630,7 @@ map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "----------------------------------------------------------------------------
 augroup JavaScriptAutoCmd
   au!
-  au FileType javascript set shiftwidth=2 tabstop=2
+  au FileType javascript set shiftwidth=4 tabstop=4
 augroup END
 
 "----------------------------------------------------------------------------
@@ -628,7 +639,7 @@ augroup END
 augroup HtmlCssAutoCmd
   au!
   au FileType html,css ColorHighlight
-  au FileType html,css set shiftwidth=2 tabstop=2
+  au FileType xml,html,css set shiftwidth=2 tabstop=2
   au FileTYpe html,css nnoremap <C-c><C-t> :<C-u>ColorToggle<CR>
 augroup END
 
@@ -712,3 +723,15 @@ augroup HaskellAutoCmd
   au!
   au FileType haskell set shiftwidth=2 tabstop=2
 augroup END
+
+"----------------------------------------------------------------------------
+" Go
+"----------------------------------------------------------------------------
+augroup ArduinoAutoCmd
+  au!
+  au BufNewFile,BufRead *.go set filetype=go
+augroup END
+
+set rtp+=$GOROOT/misc/vim
+exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+set completeopt=menu,preview
