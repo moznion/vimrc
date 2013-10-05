@@ -44,7 +44,17 @@ NeoBundle 'moznion/hateblo.vim'
 "}}}
 
 " Input Support {{{
-NeoBundle 'Shougo/neocomplcache'
+function! s:meet_neocomplete_requirements()
+  return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
+endfunction
+if s:meet_neocomplete_requirements()
+  NeoBundle 'Shougo/neocomplete.vim'
+  NeoBundleFetch 'Shougo/neocomplcache.vim'
+else
+  NeoBundleFetch 'Shougo/neocomplete.vim'
+  NeoBundle 'Shougo/neocomplcache.vim'
+endif
+
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-endwise'
@@ -241,40 +251,72 @@ let g:mapleader = ','
 "----------------------------------------------------------------------------
 "For neocomplcache
 "----------------------------------------------------------------------------
-let g:acp_enableAtStartup = 0                           "Disable AutoComplPop.
-let g:neocomplcache_enable_at_startup = 1               " Use neocomplcache.
-let g:neocomplcache_min_syntax_length = 3               "Set minimum keyword length to pop up.
-let g:neocomplcache_enable_smart_case = 1               "Use smart case.
-let g:neocomplcache_enable_underbar_completion = 1      "Use under bar completion.
-let g:neocomplcache_enable_camel_case_completion = 1    "Use camel case completion.
-let g:neocomplcache_snippets_dir = "~/.vim/snippets"
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_skip_auto_completion_time = '0.3'
+let g:acp_enableAtStartup = 0  "Disable AutoComplPop.
+if s:meet_neocomplete_requirements()
+  let g:neocomplete#enable_at_startup = 1                 " Use neocomplete.
+  let g:neocomplete#sources#syntax#min_keyword_length = 3 "Set minimum keyword length to pop up.
+  let g:neocomplete#enable_smart_case = 1                 "Use smart case.
+  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+  let g:neocomplete#skip_auto_completion_time = '0.3'
 
-let g:neocomplcache_ctags_arguments_list = {
-\ 'perl' : '-R -h ".pm"'
-\}
+  let g:neocomplete#ctags_arguments = {
+  \ 'perl' : '-R -h ".pm"'
+  \}
 
-let g:neocomplcache_dictionary_filetype_lists = {
-\ 'default'  : '',
-\ 'perl'     : $HOME . '/.vim/dict/perl.dict',
-\ 'cpanfile' : $HOME . '/.vim/bundle/vim-cpanfile/dict/cpanfile.dict'
-\}
+  let g:neocomplete#sources#dictionary#dictionaries = {
+  \ 'default'  : '',
+  \ 'perl'     : $HOME . '/.vim/dict/perl.dict',
+  \ 'cpanfile' : $HOME . '/.vim/bundle/vim-cpanfile/dict/cpanfile.dict'
+  \}
 
-" Define keyword. {{{
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
+  " Define keyword. {{{
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+  "}}}
+
+  " Enable heavy omni completion {{{
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\.\?'
+else
+  let g:neocomplcache_enable_at_startup = 1               " Use neocomplcache.
+  let g:neocomplcache_min_syntax_length = 3               "Set minimum keyword length to pop up.
+  let g:neocomplcache_enable_smart_case = 1               "Use smart case.
+  let g:neocomplcache_enable_underbar_completion = 1      "Use under bar completion.
+  let g:neocomplcache_enable_camel_case_completion = 1    "Use camel case completion.
+  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+  let g:neocomplcache_skip_auto_completion_time = '0.3'
+
+  let g:neocomplcache_ctags_arguments_list = {
+  \ 'perl' : '-R -h ".pm"'
+  \}
+
+  let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'  : '',
+  \ 'perl'     : $HOME . '/.vim/dict/perl.dict',
+  \ 'cpanfile' : $HOME . '/.vim/bundle/vim-cpanfile/dict/cpanfile.dict'
+  \}
+
+  " Define keyword. {{{
+  if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+  endif
+  let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+  "}}}
+
+  " Enable heavy omni completion {{{
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+  endif
+  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-"}}}
-
-" Enable heavy omni completion {{{
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
 "}}}
 
 " Key mapping for neocomplcache {{{
