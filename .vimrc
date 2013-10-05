@@ -207,9 +207,13 @@ nnoremap <silent> <C-s><C-r> :<C-U>source $MYVIMRC \| if has('gui_running') \| s
 nnoremap <silent> <C-s><C-e> :e $MYVIMRC<CR>
 
 " Open snippet definition file {{{
-let s:snippetDir = $HOME . '/.vim/snippets/'
+if !exists("g:neosnippet#snippets_directory")
+    let g:neosnippet#snippets_directory=""
+endif
+let g:neosnippet#snippets_directory = $HOME . '/.vim/snippets/'
+
 func! b:openSnippetFile()
-  let s:snippetLocate = s:snippetDir . &filetype . '.snippets'
+  let s:snippetLocate = g:neosnippet#snippets_directory . &filetype . '.snippets'
   execute ':e' . s:snippetLocate
 endf
 nnoremap <silent> <C-s><C-s> :call b:openSnippetFile()<CR>
@@ -285,8 +289,8 @@ func! s:my_cr_function()
 endf
 
 " for snippets
-imap <expr><C-k> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
+imap <expr><C-k> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><C-k> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 "}}}
 
 "----------------------------------------------------------------------------
