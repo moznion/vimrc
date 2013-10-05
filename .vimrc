@@ -629,6 +629,11 @@ map <silent> <Leader>pt <Esc> :%! perltidy -se<CR>
 map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "}}}
 
+" Syntastic {{{
+unlet g:syntastic_perl_lib_path
+let g:syntastic_perl_lib_path = []
+" }}}
+
 "----------------------------------------------------------------------------
 " JavaScript
 "----------------------------------------------------------------------------
