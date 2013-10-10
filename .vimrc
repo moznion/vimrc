@@ -778,7 +778,7 @@ augroup END
 "----------------------------------------------------------------------------
 " Go
 "----------------------------------------------------------------------------
-augroup ArduinoAutoCmd
+augroup GoAutoCmd
   au!
   au BufNewFile,BufRead *.go set filetype=go
 augroup END
