@@ -672,8 +672,9 @@ map <silent> <Leader>ptv <Esc> :'<,'>! perltidy -se<CR>
 "}}}
 
 " Syntastic {{{
-unlet g:syntastic_perl_lib_path
-let g:syntastic_perl_lib_path = []
+if !exists('g:syntastic_perl_lib_path')
+  let g:syntastic_perl_lib_path = []
+endif
 " }}}
 
 "----------------------------------------------------------------------------
