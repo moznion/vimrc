@@ -611,8 +611,6 @@ augroup END
 augroup PerlAutoCmd
   au!
   au FileType perl set shiftwidth=4 tabstop=4
-  au BufNewFile,BufRead cpanfile set filetype=cpanfile
-  au BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
   au BufNewFile,BufRead *.tx set filetype=xslate
   au BufNewFile,BufRead *.tx set syntax=xslate
   au BufNewFile,BufRead *.tt set filetype=xslate
